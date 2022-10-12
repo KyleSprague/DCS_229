@@ -644,12 +644,12 @@ def test_setitem_invalid_index_on_length_one_random_String_(random_string_length
 
 #take a random substring from a random String
 
-def test_substring_on_string_(random_string: pytest.fixture, characters: pytest.fixture) -> None: 
+def test_substring_on_String_(random_string: pytest.fixture) -> None: 
 
     '''
-        Pytest for __substring__ method using random length String object and random length substring
+        Pytest for substring method using random length String object and random length substring
 
-        (1). stores the replacement result of concatenating random_string and different_random_string
+        (1). stores the result of taking a subsection of a random substring
         (2) calls print_test with string version of test, result of the actual
         test, and expected result
         (3) assert required by pytest  
@@ -669,13 +669,86 @@ def test_substring_on_string_(random_string: pytest.fixture, characters: pytest.
                 expected = expected) 
     assert (result == expected) 
 
-#raise index error if accessing into list with length 0 with any start or stop > 0 
+#raise index error if accessing into list with length 0 with any start or stop > 0  
 
-#index into String of length one  
+def test_substring_on__empty_String_w_bad_indexing_(empty_string: pytest.fixture) -> None: 
 
-#index into String with invalid start and end values (such as @) 
+    '''
+        Pytest for substring method using empty string and indeces larger than zero
+
+        (1). stores the replacement result of taking a subsection of an empty String
+        (2) calls print_test with string version of test, result of the actual
+        test, and expected result
+        (3) assert required by pytest  
+    '''  
+
+    sub_str_start = 0
+    sub_str_end = 55 
+
+    result = (String(empty_string)).substring(sub_str_start, sub_str_end)
+    
+    expected = []
+
+    print_test(f'String({empty_string})[{sub_str_start}:{sub_str_end}] = \'{expected}\'', 
+                result = result, 
+                expected = expected) 
+    assert (result == expected) 
+
+
+#index into random String of length one with invalid indeces 
+
+def test_substring_on_random_String_length_one_(random_string_length_one: pytest.fixture) -> None: 
+
+    '''
+        Pytest for substring method on random string of length one with invalid indeces
+
+        (1). uses 'with pytest.raises' to look for appropriate raised exception,
+            which is raised by the indented code
+        (2) calls print_test with string version of test, result of the actual
+        test, and expected result
+        (3) assert required by pytest  
+    '''  
+
+    length = 1
+    sub_str_start = "37"
+    sub_str_end = "43"
+
+    string = String(random_string_length_one)  # first need a construction...
+    with pytest.raises(TypeError) as exception_info:
+        (String(random_string_length_one)).substring(sub_str_start, sub_str_end)            # this should raise an IndexError 
+    result = type(exception_info.value)
+    expected = TypeError
+    print_test(f'String({random_string_length_one})[{sub_str_start}:{sub_str_end}] = \'TypeError\'', 
+                result = result, 
+                expected = expected) 
+    assert(result == expected)
 
 #raise index error if start value is higher than stop value 
+
+def test_substring_on_different_random_String_where_stop_greater_than_start(different_random_string: pytest.fixture) -> None:      
+    '''    
+        Pytest for substring method on random String where stop index higher that start index
+
+        (1). uses 'with pytest.raises' to look for appropriate raised exception,
+            which is raised by the indented code
+        (2) calls print_test with string version of test, result of the actual
+        test, and expected result
+        (3) assert required by pytest  
+    '''  
+
+    length = len(different_random_string)  
+    sub_str_end = random.randint(1, length-1)  
+    sub_str_start = length
+
+    with pytest.raises(IndexError) as exception_info:
+        (String(different_random_string)).substring(sub_str_start, sub_str_end)            # this should raise an IndexError 
+    result = type(exception_info.value)
+    expected = IndexError
+    print_test(f'String({different_random_string})[{sub_str_start}:{sub_str_end}] = \'IndexError\'', 
+                result = result, 
+                expected = expected) 
+    assert(result == expected)
+
 
 
 
