@@ -1,5 +1,7 @@
 class String:
-    '''DCS 229 implementation of a version of the built-in str class.
+    '''DCS 229 implementation of a version of the built-in str class. 
+    
+    PLEASE NOTE THAT MOST OF THE COMMENTATION IS BY MY PROFESSOR Barry Lawson: blawson@bates.edu
 
     This class implements a simple version corresponding to the str class,
     where a String object consists of a sequence of characters.
